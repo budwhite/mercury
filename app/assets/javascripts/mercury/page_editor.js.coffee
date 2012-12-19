@@ -39,13 +39,18 @@ class @Mercury.PageEditor
       @iframe.data('loaded', true)
 
       # set document reference of iframe
-      @document = jQuery(@iframe.get(0).contentWindow.document)
+      @targetWindow = @iframe.get(0).contentWindow
+      @document = jQuery(@targetWindow.document)
+
+      if @options.innerFrame
+        @targetWindow = jQuery(@options.innerFrame, @document).get(0).contentWindow
+        @document = jQuery(@targetWindow.document)
 
       # inject styles for document to be able to highlight regions and other tools
       jQuery("<style mercury-styles=\"true\">").html(Mercury.config.injectedStyles).appendTo(@document.find('head'))
 
       # jquery: make jQuery evaluate scripts within the context of the iframe window
-      iframeWindow = @iframe.get(0).contentWindow
+      iframeWindow = @targetWindow
       jQuery.globalEval = (data) -> (iframeWindow.execScript || (data) -> iframeWindow["eval"].call(iframeWindow, data))(data) if (data && /\S/.test(data))
 
       iframeWindow.Mercury = Mercury
@@ -87,7 +92,7 @@ class @Mercury.PageEditor
       if !Mercury.Regions[type].supported
         Mercury.notify('Mercury.Regions.%s is unsupported in this client. Supported browsers are %s.', type, Mercury.Regions[type].supportedText)
         return false
-      region = new Mercury.Regions[type](region, @iframe.get(0).contentWindow)
+      region = new Mercury.Regions[type](region, @targetWindow)
       region.togglePreview() if @previewing
     @regions.push(region)
 
