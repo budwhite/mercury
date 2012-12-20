@@ -3,10 +3,6 @@
  *----------------------------------------------------------------------------*/
 .mercury-toolbar-container {
   user-select: none;
-  position: fixed;
-  z-index: 10010;
-  top: 0;
-  left: 0;
   width: 100%;
   border-bottom: 1px solid #E2E1E2;
 }

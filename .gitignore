@@ -3,6 +3,7 @@
 .rvmrc
 .powenv
 mercury.ids
+.DS_Store
 
 # Local config files
 Gemfile.lock

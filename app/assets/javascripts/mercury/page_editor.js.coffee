@@ -30,7 +30,7 @@ class @Mercury.PageEditor
 
     @iframe.one 'load', => @bindEvents()
     @iframe.on 'load', => @initializeFrame()
-    @loadIframeSrc(null)
+    @loadIframeSrc(@options.iframeSrcUrl)
 
 
   initializeFrame: ->
