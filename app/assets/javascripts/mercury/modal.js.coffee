@@ -82,14 +82,14 @@ class @Mercury.Modal
   resize: (keepVisible) ->
     visibility = if keepVisible then 'visible' else 'hidden'
 
-    titleHeight = @titleElement.outerHeight()
+    titleHeight = @titleElement.outerHeight(false)
 
-    width = @contentElement.outerWidth()
+    width = @contentElement.outerWidth(false)
 
     @contentPane.css({height: 'auto'}) if @contentPane
     @contentElement.css({height: 'auto', visibility: visibility, display: 'block'})
 
-    height = @contentElement.outerHeight() + titleHeight
+    height = @contentElement.outerHeight(false) + titleHeight
 
     width = @options.minWidth if width < @options.minWidth
     height = Mercury.displayRect.fullHeight if height > Mercury.displayRect.fullHeight || @options.fullHeight
@@ -98,7 +98,7 @@ class @Mercury.Modal
       @contentElement.css({visibility: 'visible', display: 'block'})
       if @contentPane.length
         @contentElement.css({height: height - titleHeight, overflow: 'visible'})
-        controlHeight = if @contentControl.length then @contentControl.outerHeight() + 10 else 0
+        controlHeight = if @contentControl.length then @contentControl.outerHeight(false) + 10 else 0
         @contentPane.css({height: height - titleHeight - controlHeight - 20})
         @contentPane.find('.mercury-display-pane').css({width: width - 20})
       else
@@ -118,10 +118,10 @@ class @Mercury.Modal
     width = @options.minWidth if width < @options.minWidth
     height = Mercury.displayRect.fullHeight if height > Mercury.displayRect.fullHeight || @options.fullHeight
 
-    titleHeight = @titleElement.outerHeight()
+    titleHeight = @titleElement.outerHeight(false)
     if @contentPane && @contentPane.length
       @contentElement.css({height: height - titleHeight, overflow: 'visible'})
-      controlHeight = if @contentControl.length then @contentControl.outerHeight() + 10 else 0
+      controlHeight = if @contentControl.length then @contentControl.outerHeight(false) + 10 else 0
       @contentPane.css({height: height - titleHeight - controlHeight - 20})
       @contentPane.find('.mercury-display-pane').css({width: width - 20})
     else
