@@ -2,6 +2,7 @@ class @Mercury.SnippetToolbar extends Mercury.Toolbar
 
   constructor: (@document, @options = {}) ->
     @_boundEvents = []
+    @iframe = @options.iframe
     super(@options)
 
 
@@ -48,14 +49,13 @@ class @Mercury.SnippetToolbar extends Mercury.Toolbar
   position: ->
     offset = @snippet.offset()
 
-    top = offset.top + Mercury.displayRect.top - jQuery(@document).scrollTop() - @height() + 10
-    left = offset.left - jQuery(@document).scrollLeft()
+    top = @iframe.offset().top + offset.top - jQuery(@document).scrollTop()
+    left = @iframe.offset().left + offset.left - jQuery(@document).scrollLeft()
 
     @element.css {
       top: top
       left: left
     }
-
 
   appear: ->
     clearTimeout(@hideTimeout)

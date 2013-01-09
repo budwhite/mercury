@@ -102,7 +102,7 @@ class @Mercury.PageEditor
     @santizerElement.appendTo(@options.appendTo ? @document.find('body'))
 
     @snippetToolbar.release() if @snippetToolbar
-    @snippetToolbar = new Mercury.SnippetToolbar(@document)
+    @snippetToolbar = new Mercury.SnippetToolbar(@document, { iframe: @iframe })
 
     @hijackLinksAndForms()
     Mercury.trigger('mode', {mode: 'preview'}) unless @visible
