@@ -24,10 +24,6 @@ class @Mercury.PageEditor
     @iframe = jQuery('<iframe>', {id: 'mercury_iframe', class: 'mercury-iframe', frameborder: '0', src: 'about:blank'})
     @iframe.appendTo(jQuery(@options.appendTo).get(0) ? 'body')
 
-    @toolbar = new Mercury.Toolbar(jQuery.extend(true, {}, @options, @options.toolbarOptions))
-    @statusbar = new Mercury.Statusbar(jQuery.extend(true, {}, @options, @options.statusbarOptions))
-    @resize()
-
     @iframe.one 'load', => @bindEvents()
     @iframe.on 'load', => @initializeFrame()
     @loadIframeSrc(@options.iframeSrcUrl)
@@ -58,7 +54,6 @@ class @Mercury.PageEditor
 
       # (re) initialize the editor against the new document
       @bindDocumentEvents()
-      @resize()
       @initializeRegions()
       @finalizeInterface()
 
@@ -125,7 +120,6 @@ class @Mercury.PageEditor
     Mercury.on 'initialize:frame', => setTimeout(@initializeFrame, 100)
     Mercury.on 'focus:frame', => @iframe.focus()
     Mercury.on 'focus:window', => setTimeout((=> @focusableElement.focus()), 10)
-    Mercury.on 'toggle:interface', => @toggleInterface()
     Mercury.on 'reinitialize', => @initializeRegions()
     Mercury.on 'mode', (event, options) => @previewing = !@previewing if options.mode == 'preview'
     Mercury.on 'action', (event, options) =>
@@ -134,9 +128,6 @@ class @Mercury.PageEditor
       event.preventDefault()
       action.call(@, options)
 
-    jQuery(window).on 'resize', =>
-      @resize()
-
     jQuery(window).bind 'keydown', (event) =>
       return unless event.ctrlKey || event.metaKey
       if (event.keyCode == 83) # meta+S
@@ -144,40 +135,6 @@ class @Mercury.PageEditor
         event.preventDefault()
 
     window.onbeforeunload = @beforeUnload
-
-
-  toggleInterface: ->
-    if @visible
-      @visible = false
-      @toolbar.hide()
-      @statusbar.hide()
-      Mercury.trigger('mode', {mode: 'preview'}) unless @previewing
-      @previewing = true
-      @resize()
-    else
-      @visible = true
-      @iframe.animate({top: @toolbar.height(true)}, 200, 'easeInOutSine', => @resize())
-      @toolbar.show()
-      @statusbar.show()
-      Mercury.trigger('mode', {mode: 'preview'})
-      @previewing = false
-
-
-  resize: ->
-    width = jQuery(window).width()
-    height = @statusbar.top()
-    toolbarHeight = @toolbar.top() + @toolbar.height()
-
-    Mercury.displayRect = {top: toolbarHeight, left: 0, width: width, height: height - toolbarHeight, fullHeight: height}
-
-    @iframe.css {
-      top: toolbarHeight
-      left: 0
-      height: height - toolbarHeight
-    }
-
-    Mercury.trigger('resize')
-
 
   iframeSrc: (url = null, params = false) ->
     # remove the /editor segment of the url if it gets passed through

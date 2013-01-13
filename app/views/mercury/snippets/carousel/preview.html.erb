@@ -1,0 +1,17 @@
+<div id='slider' class='swipe'>
+  <div class='swipe-wrap'>
+    <div>
+      <img src='http://src.sencha.io/292/<%= params[:options][:Img1] %>'></img>
+    </div>
+    <div>
+      <img src='http://src.sencha.io/292/<%= params[:options][:Img2] %>'></img>
+    </div>
+    <div>
+      <img src='http://src.sencha.io/292/<%= params[:options][:Img3] %>'></img>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.slider = new Swipe(document.getElementById('slider'));
+</script>

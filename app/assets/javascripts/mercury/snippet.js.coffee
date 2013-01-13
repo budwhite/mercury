@@ -4,12 +4,9 @@ class @Mercury.Snippet
 
   @displayOptionsFor: (name, options = {}, displayOptions = true) ->
     if displayOptions
-      Mercury.modal @optionsUrl(name), jQuery.extend({
-        title: 'Snippet Options'
-        handler: 'insertSnippet'
-        snippetName: name
-        loadType: Mercury.config.snippets.method
-      }, options)
+      $('#modal_'+name).modal({
+        remote: @optionsUrl(name)
+      })
     else
       snippet = Mercury.Snippet.create(name)
       Mercury.trigger('action', {action: 'insertSnippet', value: snippet})

@@ -92,9 +92,9 @@ class @Mercury.Modal
     height = @contentElement.outerHeight(false) + titleHeight
 
     width = @options.minWidth if width < @options.minWidth
-    height = Mercury.displayRect.fullHeight if height > Mercury.displayRect.fullHeight || @options.fullHeight
+    height = 400 if height > 400 || @options.fullHeight
 
-    @element.stop().animate {left: (Mercury.displayRect.width - width) / 2, width: width, height: height}, 200, 'easeInOutSine', =>
+    @element.stop().animate {left: (500 - width) / 2, width: width, height: height}, 200, 'easeInOutSine', =>
       @contentElement.css({visibility: 'visible', display: 'block'})
       if @contentPane.length
         @contentElement.css({height: height - titleHeight, overflow: 'visible'})
@@ -106,7 +106,7 @@ class @Mercury.Modal
 
 
   position: ->
-    viewportWidth = Mercury.displayRect.width
+    viewportWidth = 500
 
     @contentPane.css({height: 'auto'}) if @contentPane
     @contentElement.css({height: 'auto'})
@@ -116,7 +116,7 @@ class @Mercury.Modal
     height = @element.height()
 
     width = @options.minWidth if width < @options.minWidth
-    height = Mercury.displayRect.fullHeight if height > Mercury.displayRect.fullHeight || @options.fullHeight
+    height = 400 if height > 300 || @options.fullHeight
 
     titleHeight = @titleElement.outerHeight(false)
     if @contentPane && @contentPane.length
