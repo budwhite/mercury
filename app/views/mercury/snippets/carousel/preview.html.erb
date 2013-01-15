@@ -1,15 +1,13 @@
 <div id='slider' class='swipe'>
   <div class='swipe-wrap'>
-    <div>
-      <img src='http://src.sencha.io/292/<%= params[:options][:Img1] %>'></img>
-    </div>
-    <div>
-      <img src='http://src.sencha.io/292/<%= params[:options][:Img2] %>'></img>
-    </div>
-    <div>
-      <img src='http://src.sencha.io/292/<%= params[:options][:Img3] %>'></img>
-    </div>
+    <% params[:options].each do |k,v| %>
+      <div>
+        <img src='http://src.sencha.io/292/<%= v %>'></img>
+      </div>
+    <% end %>
   </div>
+  <a class='control' onclick='slider.prev();return false;'>‹</a>
+  <a class='right control' onclick='slider.next();return false;'>›</a>
 </div>
 
 <script>
