@@ -53,11 +53,11 @@ class @Mercury.Regions.Full extends Mercury.Region
         table = currentElement.closest('table', @element)
         Mercury.tableEditor(table, currentElement.closest('tr, td'), '<br/>') if table.length
         # display a tooltip if we're in an anchor
-        anchor = currentElement.closest('a', @element)
-        if anchor.length && anchor.attr('href')
-          Mercury.tooltip(anchor, "<a href=\"#{anchor.attr('href')}\" target=\"_blank\">#{anchor.attr('href')}</a>", {position: 'below'})
-        else
-          Mercury.tooltip.hide()
+        #anchor = currentElement.closest('a', @element)
+        #if anchor.length && anchor.attr('href')
+          #Mercury.tooltip(anchor, "<a href=\"#{anchor.attr('href')}\" target=\"_blank\">#{anchor.attr('href')}</a>", {position: 'below'})
+        #else
+          #Mercury.tooltip.hide()
 
     @element.on 'dragenter', (event) =>
       return if @previewing
@@ -120,7 +120,7 @@ class @Mercury.Regions.Full extends Mercury.Region
     @element.on 'blur', =>
       return if @previewing
       Mercury.trigger('region:blurred', {region: @})
-      Mercury.tooltip.hide()
+      #Mercury.tooltip.hide()
 
     @element.on 'click', (event) =>
       jQuery(event.target).closest('a').attr('target', '_parent') if @previewing

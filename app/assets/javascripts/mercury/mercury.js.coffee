@@ -17,12 +17,10 @@
 #= require ./panel
 #= require ./modal
 #= require ./lightview
-#= require ./statusbar
 #= require ./toolbar
 #= require ./toolbar.button
 #= require ./toolbar.button_group
 #= require ./toolbar.expander
-#= require ./tooltip
 #= require ./snippet
 #= require ./snippet_toolbar
 #= require ./region

@@ -41,7 +41,6 @@ class @Mercury.SnippetToolbar extends Mercury.Toolbar
 
 
   show: (@snippet) ->
-    Mercury.tooltip.hide()
     @position()
     @appear()
 
